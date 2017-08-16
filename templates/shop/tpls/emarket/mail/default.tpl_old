@@ -1,0 +1,26 @@
+<?php
+$FORMS = Array();
+
+/* Это идет на почту клиенту */
+$FORMS['status_notification'] = <<<END
+	Спасибо за покупку, номер вашего заказа: %order_number%
+	<br/><br/>
+	%emarket order(%order_id%, 'mail_form')%
+	<br/><br/>
+	Посмотреть историю заказов вы можете в своем <a href="http://%domain%/emarket/personal/">личном кабинете</a>.	
+END;
+
+$FORMS['status_notification_receipt'] = <<<END
+	Спасибо за покупку, номер вашего заказа: %order_number%
+	<br/><br/>
+	%emarket order(%order_id%)%
+	<br/><br/>
+	Посмотреть историю заказов вы можете в своем <a href="http://%domain%/emarket/personal/">личном кабинете</a>.
+END;
+
+$FORMS['neworder_notification'] = <<<END
+	Поступил новый заказ #%order_number% (<a href="http://%domain%/admin/emarket/order_edit/%order_id%/">Просмотр</a>)
+	<br/><br/>
+	К оплате:  %price%<br/>
+END;
+?>

@@ -1,0 +1,97 @@
+<?php
+$FORMS = array();
+
+$FORMS['price_block'] = <<<END
+
+<h5>Вывод цены</h5>
+%price-original%
+%price-actual%
+
+%emarket discountInfo(%discount_id%)%
+
+%currency-prices%
+
+
+END;
+
+$FORMS['price_original'] = <<<END
+<p>
+	<strike>%prefix%&nbsp;%original%&nbsp;%suffix%</strike>
+</p>
+END;
+
+$FORMS['price_actual'] = <<<END
+	%prefix%&nbsp;%actual%&nbsp;%suffix%
+END;
+
+$FORMS['order_block'] = <<<END
+  %customer%
+  %emarket getCustomerInfo('mail_form')%
+    <h3 style="margin: 20px 0 10px 0; color: #7A500E;;">Покупки в заказе</h3>
+    <table style="text-align: left;" width="100%" rules="rows" cellspacing="0" cellpadding="0" border="0" id="order_block">
+        <thead>
+            <tr class="orow_hat">
+                <th>Наименования</th>
+                <th>Кол-во</th>     
+                <th>Цена</th>
+                <th>Сумма</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+                %items%
+        </tbody>
+    </table>
+        <div style="">
+             
+        </div>
+        <div style="">
+            
+        </div>
+        <div class="clear"></div>
+        <div style="">
+            <table cellspacing="1" cellpadding="1" width="100%" border="0">	
+                 
+            </table>
+        </div>
+        <div style="margin-left: 30px;">
+             
+        </div>
+
+END;
+
+$FORMS['order_item'] = <<<END
+<tr>
+
+
+	<td style="text-align: left;">
+		<a href="%link%">%name%</a>
+	</td>
+
+	<td>
+	</td>
+
+	<td>
+		%price%
+	</td>
+
+	<td>
+		%total-price%
+	</td>
+
+	<td></td>
+</tr>
+END;
+
+$FORMS['options_block'] = <<<END
+ %items%
+END;
+
+$FORMS['options_block_empty'] = "---";
+
+$FORMS['options_item'] = <<<END
+%name% +%price%%list-comma%
+END;
+
+
+?>

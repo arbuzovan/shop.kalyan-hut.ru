@@ -1,0 +1,204 @@
+AddDefaultCharset utf-8
+php_value memory_limit 256M
+
+RewriteEngine On
+
+
+Options +FollowSymlinks
+Options All -Indexes
+
+RewriteBase /
+
+####################### UMI_CMS_HTACCESS_BEGIN ###########################
+
+#php_value auto_prepend_file "/libs/opaf.umi.php"
+#To avoid manual css and js files recompile. Debug only.
+#RewriteRule (commonClient\.js)|(compressed\.js)|(compiled\.js)|(compiled\.css)|(compressed\.css)|(tiny_mce\.js) developerTools/preCompile.php [L]
+
+
+RewriteCond %{HTTP_HOST} ^www.shop.kalyan-hut.ru$ [NC]
+RewriteRule ^(.*)$ https://shop.kalyan-hut.ru/$1 [R=301,L]
+
+RewriteRule ^~/([0-9]+)$ tinyurl.php?id=$1 [L]
+
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^(sys\-temp|cache|xmldb|static|packages)\/.*$ /500/ [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^robots\.txt$  sbots2.php?path=$1%{QUERY_STRING} [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^sitemap\.xml$  sitemap.php [L,R]
+
+RewriteRule ^config\.ini$ / [L,R]
+RewriteRule ^install\.ini$ / [L,R]
+RewriteRule ^install\.log$ / [L,R]
+RewriteRule ^header/$ /header/index.html [L,R]
+RewriteRule ^footer/$ /footer/index.html [L,R]
+
+RewriteRule ^avia.di-zi.ru/header/$ /avia.di-zi.ru/header/index.html [L,R]
+RewriteRule ^avia.di-zi.ru/footer/$ /avia.di-zi.ru/footer/index.html [L,R]
+
+RewriteRule ^umi\.nginx\.conf$ / [L,R]
+RewriteRule ^dbview\.php$ / [L,R]
+
+RewriteCond %{REQUEST_URI} !^styles
+RewriteCond %{REQUEST_URI} !^css
+RewriteCond %{REQUEST_URI} !\.css
+RewriteCond %{REQUEST_URI} !^js
+RewriteCond %{REQUEST_URI} !\.js
+RewriteCond %{REQUEST_URI} !^images
+RewriteCond %{REQUEST_URI} !^webstat
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(.*)\.xml$ index.php?xmlMode=force&path=$1&%{QUERY_STRING} [L]
+
+RewriteRule ^\/?(udata|upage|uobject|ufs|usel|ulang|utype|umess|uhttp):?(\/\/)?(.*)$ releaseStreams.php?scheme=$1&path=$3?%{QUERY_STRING} [L]
+
+RewriteRule ^(.*)\.json$ index.php?jsonMode=force&path=$1&%{QUERY_STRING} [L]
+
+RewriteCond %{REQUEST_URI} !^styles
+RewriteCond %{REQUEST_URI} !^css
+RewriteCond %{REQUEST_URI} !\.css
+RewriteCond %{REQUEST_URI} !^js
+RewriteCond %{REQUEST_URI} !\.js
+RewriteCond %{REQUEST_URI} !^images
+
+RewriteCond %{REQUEST_URI} !(\.ico|\.ICO)$
+RewriteCond %{REQUEST_URI} !(\.jpg|\.JPG)$
+RewriteCond %{REQUEST_URI} !(\.jpeg|\.JPEG)$
+RewriteCond %{REQUEST_URI} !(\.png|\.PNG)$
+RewriteCond %{REQUEST_URI} !(\.gif|\.GIF)$
+RewriteCond %{REQUEST_URI} !(\.css|\.CSS)$
+RewriteCond %{REQUEST_URI} !(\.js|\.JS)$
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^(.*)$ index.php?path=$1&%{QUERY_STRING}&umi_authorization=%{HTTP:Authorization} [L]
+
+RewriteCond %{REQUEST_URI} (\.ico|\.ICO)$
+RewriteCond %{REQUEST_URI} (\.jpg|\.JPG)$
+RewriteCond %{REQUEST_URI} (\.jpeg|\.JPEG)$
+RewriteCond %{REQUEST_URI} (\.png|\.PNG)$
+RewriteCond %{REQUEST_URI} (\.gif|\.GIF)$
+RewriteCond %{REQUEST_URI} (\.css|\.CSS)$
+RewriteCond %{REQUEST_URI} (\.js|\.JS)$
+
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+
+<IfModule mod_mime.c>
+AddType application/x-java-applet .class
+AddType text/x-component .htc
+</IfModule>
+
+<IfModule mod_security.c>
+SecFilterScanPOST Off
+</IfModule>
+
+<Files "whatsnew.txt">
+Deny from all
+</Files>
+
+######################## UMI_CMS_HTACCESS_END ############################
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteCond %{HTTP_HOST} ^www.di-zi.ru
+RewriteRule ^(.*)$ http://di-zi.ru/$1 [R=301,L]
+
+RewriteRule    ^egipet/$   on_tourism/regional_geography/egipet/     [NC,L]    # Process all products
+
+RewriteRule    ^egipet/([A-Za-z0-9-]+)/$   on_tourism/regional_geography/egipet/regiony_egipta/$1/     [NC,L]    # Process all products
+#RewriteRule    ^strani/(.+)/$   on_tourism/regional_geography/$1/     [NC,L]    # Process all products
+
+#on_tourism/regional_geography/egipet/regiony_egipta/hurgada/
+
+RewriteCond %{HTTP_HOST} ^www.chaynikibar.ru
+RewriteRule ^(.*)$ http://chaynikibar.ru/$1 [R=301,L]
+
+
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE application/x-javascript
+  AddOutputFilterByType DEFLATE text/css
+  <IfModule mod_setenvif.c>
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+  </IfModule>
+</IfModule>
+
+
+
+# кеширование в браузере на стороне пользователя
+<ifModule mod_headers.c>
+    #Header set ETag
+    FileETag MTime Size
+    
+    <FilesMatch "\.(html|htm|php)$">
+        Header set Cache-Control "max-age=86400, must-revalidate"
+    </FilesMatch>
+    <FilesMatch "\.(js|css|txt)$">
+        Header set Cache-Control "max-age=604800, must-revalidate"
+    </FilesMatch>
+    <FilesMatch "\.(flv|swf|ico|gif|jpg|jpeg|png)$">
+        Header set Cache-Control "max-age=604800, must-revalidate"
+    </FilesMatch>
+    <FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
+        Header set Cache-Control "max-age=86400, must-revalidate"
+    </FilesMatch>
+    
+    #<FilesMatch "\.(ico|jpg|jpeg|png|gif|js|css|swf)$">
+    #    Header set Expires "Tue, 16 Jun 2020 20:00:00 GMT"
+    #</FilesMatch>
+    #<FilesMatch "\.(html|htm|php)$">
+    #    Header set Expires "Tue, 16 Jun 2020 20:00:00 GMT"
+    #</FilesMatch>
+    
+    <FilesMatch "\.(js|css|txt|html|htm|php)$">
+        Header set Vary "User-Agent"
+    </FilesMatch>
+    #<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|js|css|swf)$">
+        #Header set ETag
+        #FileETag on
+    #</FilesMatch>
+</IfModule>
+
+<ifModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 86400 seconds"
+    
+    <FilesMatch \.(html|xhtml|xml|shtml|phtml|php|txt)$>
+        ExpiresDefault "access plus 86400 seconds"
+    </FilesMatch>
+    <FilesMatch \.(gif|png|jpg|jpeg|ogg|mp4|mkv|flv|swf|wmv|asf|asx|wma|wax|wmx|wm)$>
+        ExpiresDefault "access plus 604800 seconds"
+    </FilesMatch>
+    <filesmatch "\.(css|js|txt)$">
+        ExpiresActive on
+        ExpiresDefault "access plus 604800 seconds"
+    </filesmatch>
+    
+    ExpiresByType image/x-icon "access plus 604800 seconds"
+    ExpiresByType image/jpeg "access plus 604800 seconds"
+    ExpiresByType image/jpg "access plus 604800 seconds"
+    ExpiresByType image/png "access plus 604800 seconds"
+    ExpiresByType image/gif "access plus 604800 seconds"
+    ExpiresByType application/x-shockwave-flash "access plus 604800 seconds"
+    ExpiresByType text/css "access plus 604800 seconds"
+    ExpiresByType text/javascript "access plus 604800 seconds"
+    ExpiresByType application/javascript "access plus 604800 seconds"
+    ExpiresByType application/x-javascript "access plus 604800 seconds"
+    ExpiresByType text/html "access plus 86400 seconds"
+    ExpiresByType application/xhtml+xml "access plus 86400 seconds"
+</ifModule>
+
+#Запрет отдачи HTTP-заголовков Vary браузерам семейства MSIE
+<IfModule mod_setenvif.c>
+    BrowserMatch "MSIE" force-no-vary
+    BrowserMatch "Mozilla/4.[0-9]{2}" force-no-vary
+</IfModule>
+

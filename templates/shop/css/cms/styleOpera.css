@@ -1,0 +1,9 @@
+﻿form[id=auth] input[type="text"]{
+		margin: 3px 0 4px 30px !important
+	}
+	form[id=auth] input[type="password"]{
+		margin: 3px 0 4px 22px !important
+	}
+	form[id=auth] input[type="submit"]{
+		margin: 3px 0 4px 70px !important
+	}

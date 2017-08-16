@@ -1,0 +1,33 @@
+<?php
+$FORMS = array();
+
+$FORMS['order_block'] = <<<END
+    <a href="/emarket/cart/" style="padding-left: 30px; position: relative; color: #DC9B36;"><img style="position: absolute; left: 0px;" width="24" src="/images/cart.png">Ваша корзина</a> <b>( %total-amount% )</b>
+END;
+
+$FORMS['order_block_empty'] = <<<END
+
+<span style="padding-left: 30px; color: #DC9B36; font-style: italic; position: relative;"><img width="24" style="position: absolute; left: 0px;" src="/images/cart.png">Корзина пуста</span>
+
+END;
+
+
+$FORMS['order_item'] = <<<END
+	<li>
+		<a href="%link%">%name%</a> x <input type="text" value"%amount%" style="width: 30px;">
+		<br />
+		%total-price%
+		<a href="%pre_lang%/emarket/basket/remove/item/%id%/">(X)</a>
+	</li>
+END;
+
+
+$FORMS['price_original'] = <<<END
+<strike>%prefix%&nbsp;%original%&nbsp;%suffix%</strike>
+END;
+
+$FORMS['price_actual'] = <<<END
+%prefix%&nbsp;%actual%&nbsp;%suffix%
+END;
+
+?>
